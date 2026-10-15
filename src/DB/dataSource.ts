@@ -9,6 +9,7 @@ const dataSource = new DataSource({
   password: process.env.DB_PASS || "",
   database: process.env.DB_DATABASE,
   entities: [path.join(process.cwd(), "src/Models/**/*{.js,.ts}")],
+  synchronize: true,
 });
 
 export { dataSource };

@@ -1,12 +1,21 @@
 import "reflect-metadata";
-import { createExpressServer, useContainer } from "routing-controllers";
+import {
+  createExpressServer,
+  RoutingControllersOptions,
+  useContainer,
+} from "routing-controllers";
 import { Container } from "typedi";
 import path = require("node:path");
 useContainer(Container);
 
-const rcOptions = {
+const rcOptions: RoutingControllersOptions = {
   controllers: [path.join(process.cwd(), "src/Controllers/*.{js,ts}")],
-  validation: true,
+  validation: {
+    validationError: {
+      target: false,
+      value: false,
+    },
+  },
 };
 
 const app = createExpressServer(rcOptions);
