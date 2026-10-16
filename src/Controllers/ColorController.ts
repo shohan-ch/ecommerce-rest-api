@@ -12,7 +12,7 @@ import { Inject, Service } from "typedi";
 import { CreateColorDto, UpdateColorDto } from "../Dtos/ColorDto";
 import { ColorService } from "./../Services/ColorService";
 
-@JsonController("/colors")
+@JsonController("/admin/colors")
 @Service()
 export class ColorControlle {
   constructor(@Inject() private ColorService: ColorService) {}
@@ -30,7 +30,7 @@ export class ColorControlle {
 
   @Put("/:id")
   update(@Param("id") id: number, @Body() body: UpdateColorDto) {
-    console.log(body, "color post");
+    console.log(body, "color update");
     return this.ColorService.update(id, body);
   }
 
