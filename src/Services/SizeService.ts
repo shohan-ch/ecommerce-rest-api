@@ -1,7 +1,7 @@
 import { Service } from "typedi";
 import { InjectRepository } from "../Utils/decorators/InjectRepository";
 import { Size } from "../Models/Size";
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 import { CreateSizeDto, UpdateSizeDto } from "../Dtos/SizeDto";
 import { NotFoundError } from "routing-controllers";
 
@@ -37,5 +37,12 @@ export class SizeService {
 
   async delete(paramId: number) {
     return await this.SizeRepository.delete({ id: paramId });
+  }
+
+  async statusChange(data: { ids: number[]; status: number }) {
+    return await this.SizeRepository.update(
+      { id: In(data.ids) },
+      { status: data.status },
+    );
   }
 }

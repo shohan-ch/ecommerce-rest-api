@@ -17,6 +17,7 @@ const rcOptions: RoutingControllersOptions = {
       value: false,
     },
   },
+  cors: true,
 };
 
 const app = createExpressServer(rcOptions);

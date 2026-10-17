@@ -38,4 +38,9 @@ export class ColorControlle {
   delete(@Param("id") id: number) {
     return this.ColorService.delete(id);
   }
+
+  @Post("/status-change")
+  statusChange(@Body() body: { ids: number[]; status: number }) {
+    return this.ColorService.statusChange(body);
+  }
 }

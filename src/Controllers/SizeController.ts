@@ -37,4 +37,9 @@ export class SizeController {
   delete(@Param("id") id: number) {
     return this.SizeService.delete(id);
   }
+
+  @Post("/status-change")
+  statusChange(@Body() body: { ids: number[]; status: number }) {
+    return this.SizeService.statusChange(body);
+  }
 }

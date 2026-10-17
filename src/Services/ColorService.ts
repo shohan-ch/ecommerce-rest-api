@@ -1,7 +1,7 @@
 import { Service } from "typedi";
 import { InjectRepository } from "../Utils/decorators/InjectRepository";
 import { Color } from "../Models/Color";
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 import { CreateColorDto, UpdateColorDto } from "../Dtos/ColorDto";
 import { NotFoundError } from "routing-controllers";
 
@@ -12,7 +12,11 @@ export class ColorService {
   ) {}
 
   async getAll() {
-    return await this.ColorRepository.find({});
+    return await this.ColorRepository.find({
+      order: {
+        id: "DESC",
+      },
+    });
   }
 
   async getOneBy(fieldName: string, value: number | string) {
@@ -37,5 +41,11 @@ export class ColorService {
 
   async delete(paramId: number) {
     return await this.ColorRepository.delete({ id: paramId });
+  }
+  async statusChange(data: { ids: number[]; status: number }) {
+    return await this.ColorRepository.update(
+      { id: In(data.ids) },
+      { status: data.status },
+    );
   }
 }
