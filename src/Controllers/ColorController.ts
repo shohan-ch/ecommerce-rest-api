@@ -14,7 +14,7 @@ import { ColorService } from "./../Services/ColorService";
 
 @JsonController("/admin/colors")
 @Service()
-export class ColorControlle {
+export class ColorController {
   constructor(@Inject() private ColorService: ColorService) {}
 
   @Get("/")
