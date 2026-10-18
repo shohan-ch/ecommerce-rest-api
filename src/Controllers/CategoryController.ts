@@ -6,10 +6,13 @@ import {
   Param,
   Post,
   Put,
+  UploadedFile,
 } from "routing-controllers";
 import { Inject, Service } from "typedi";
 import { CreateCategoryDto, UpdateCategoryDto } from "../Dtos/CategoryDto";
 import { CategoryService } from "../Services/CategoryService";
+import { uploadFileOption } from "../Utils/upload/uploadFileOption";
+import multer from "multer";
 
 @JsonController("/admin/categories")
 @Service()
@@ -18,12 +21,21 @@ export class CategoryController {
 
   @Get("/")
   getAll() {
+    throw new Error("hppp");
     return this.CategoryService.getAll();
   }
 
   @Post("/")
-  create(@Body() body: CreateCategoryDto) {
-    console.log(body, "category post");
+  create(
+    // @UploadedFile("image", {
+    //   options: uploadFileOption("images/categories"),
+    // })
+    // image: any,
+    @Body()
+    body: any,
+  ) {
+    throw new Error("hppp");
+    // console.log(image, "image object");
     return this.CategoryService.create(body);
   }
 

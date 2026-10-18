@@ -4,11 +4,14 @@ import { Category } from "../Models/Category";
 import { In, Repository } from "typeorm";
 import { CreateCategoryDto, UpdateCategoryDto } from "../Dtos/CategoryDto";
 import { NotFoundError } from "routing-controllers";
+import { mkdir } from "node:fs";
+import path from "node:path";
 
 @Service()
 export class CategoryService {
   constructor(
-    @InjectRepository(Category) private CategoryRepository: Repository<Category>,
+    @InjectRepository(Category)
+    private CategoryRepository: Repository<Category>,
   ) {}
 
   async getAll() {

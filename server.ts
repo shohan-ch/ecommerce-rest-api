@@ -2,7 +2,7 @@ import "reflect-metadata";
 import app from "./src/app";
 import DbInstance from "./src/DB/dbInstance";
 
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 
 const server = () => {
   DbInstance.connect();

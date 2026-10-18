@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "esModuleInterop": true, // commons module import in es6
     "target": "ESNext",
     "module": "CommonJS",
     // "moduleResolution": "Node",
