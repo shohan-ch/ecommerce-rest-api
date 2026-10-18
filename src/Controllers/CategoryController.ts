@@ -21,7 +21,7 @@ export class CategoryController {
 
   @Get("/")
   getAll() {
-    throw new Error("hppp");
+    throw new Error("123456");
     return this.CategoryService.getAll();
   }
 

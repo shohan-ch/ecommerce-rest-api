@@ -13,7 +13,7 @@ Container.set(CustomErrorMiddleware, new CustomErrorMiddleware());
 const rcOptions: RoutingControllersOptions = {
   cors: true,
   defaultErrorHandler: false,
-  routePrefix: "api",
+  routePrefix: "/api",
   controllers: [path.join(process.cwd(), "src/Controllers/*.{js,ts}")],
   validation: {
     validationError: {
