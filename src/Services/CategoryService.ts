@@ -36,7 +36,7 @@ export class CategoryService {
   async create(data: CreateCategoryDto, image: Express.Multer.File) {
     if (!image) {
       throw fileValidationError({
-        property: image.fieldname,
+        property: "image",
         constraint: "isNotEmpty",
         message: "Image should not be empty.",
       });

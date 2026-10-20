@@ -10,6 +10,7 @@ import { CustomErrorMiddleware } from "./Middlewares/CustomErrorMiddleware";
 useContainer(Container);
 Container.set(CustomErrorMiddleware, new CustomErrorMiddleware());
 
+import express from "express";
 const rcOptions: RoutingControllersOptions = {
   cors: true,
   defaultErrorHandler: false,
@@ -27,5 +28,7 @@ const rcOptions: RoutingControllersOptions = {
 };
 
 const app = createExpressServer(rcOptions);
+
+app.use(express.static("/public/"));
 
 export default app;

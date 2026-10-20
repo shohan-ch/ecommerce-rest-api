@@ -37,7 +37,7 @@ export const fileUploadOptions = (options: OptionsType): Options => {
       filename: (_req, file, cb) => {
         // console.log(file, "ff");
         let extension = file.mimetype.split("/")[1];
-        let fileName = Date.now() + file.fieldname + "." + extension;
+        let fileName = Date.now() + "." + extension;
         cb(null, fileName);
       },
     }),
@@ -55,7 +55,7 @@ export const fileUploadOptions = (options: OptionsType): Options => {
         fileType !== undefined &&
         !allowedTypes.includes(file.mimetype.split("/")[1])
       ) {
-        cb(new MulterError("LIMIT_UNEXPECTED_FILE", file.fieldname));
+        cb(new MulterError("LIMIT_FIELD_KEY", file.fieldname));
       } else {
         cb(null, true);
       }

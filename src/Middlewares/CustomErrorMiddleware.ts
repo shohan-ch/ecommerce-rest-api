@@ -32,6 +32,9 @@ export class CustomErrorMiddleware implements ExpressErrorMiddlewareInterface {
         LIMIT_UNEXPECTED_FILE: {
           isMaximum: "File count exceeds the limit.",
         },
+        LIMIT_FIELD_KEY: {
+          isNotValid: "File type are not valid.",
+        },
       } as const;
       errorResponse = {
         status: false,

@@ -41,6 +41,7 @@ export class CategoryController {
       options: fileUploadOptions({
         directoryPath: "images/categories",
         maxFileSize: 1,
+        fileType: "image",
       }),
     })
     image: any,
