@@ -3,9 +3,12 @@ import { InjectRepository } from "../Utils/decorators/InjectRepository";
 import { Category } from "../Models/Category";
 import { In, Repository } from "typeorm";
 import { CreateCategoryDto, UpdateCategoryDto } from "../Dtos/CategoryDto";
-import { NotFoundError } from "routing-controllers";
+import { BadRequestError, NotFoundError } from "routing-controllers";
 import { mkdir } from "node:fs";
 import path from "node:path";
+import multer from "multer";
+import { ValidationError } from "class-validator";
+import { fileValidationError } from "../helpers/fileValidationError";
 
 @Service()
 export class CategoryService {
@@ -30,7 +33,14 @@ export class CategoryService {
     });
   }
 
-  async create(data: CreateCategoryDto) {
+  async create(data: CreateCategoryDto, image: any) {
+    if (!image) {
+      throw fileValidationError({
+        property: "image",
+        constraint: "isNotEmpty",
+        message: "Image should not be empty.",
+      });
+    }
     let category = this.CategoryRepository.create({ ...data });
     return await this.CategoryRepository.save(category);
   }

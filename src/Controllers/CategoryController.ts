@@ -1,18 +1,25 @@
 import {
+  BadRequestError,
   Body,
   Delete,
   Get,
   JsonController,
+  NotFoundError,
   Param,
   Post,
   Put,
+  Req,
   UploadedFile,
+  UploadedFiles,
+  UseAfter,
+  UseBefore,
 } from "routing-controllers";
 import { Inject, Service } from "typedi";
 import { CreateCategoryDto, UpdateCategoryDto } from "../Dtos/CategoryDto";
 import { CategoryService } from "../Services/CategoryService";
-import { uploadFileOption } from "../Utils/upload/uploadFileOption";
+import { fileUploadOptions } from "../Utils/upload/fileUploadOption";
 import multer from "multer";
+import { Request } from "express";
 
 @JsonController("/admin/categories")
 @Service()
@@ -21,22 +28,32 @@ export class CategoryController {
 
   @Get("/")
   getAll() {
-    throw new Error("123456");
     return this.CategoryService.getAll();
   }
 
+  // @UseBefore(
+  //   multer(
+  //     fileUploadOptions({
+  //       directoryPath: "videos/products",
+  //       fileType: "image",
+  //       maxFileSize: 2,
+  //     }),
+  //   ).fields([
+  //     { name: "video", maxCount: 2 },
+  //     { name: "video2", maxCount: 4 },
+  //   ]),
+  // )
   @Post("/")
   create(
-    // @UploadedFile("image", {
-    //   options: uploadFileOption("images/categories"),
-    // })
-    // image: any,
+    @UploadedFile("image", {
+      options: fileUploadOptions({ directoryPath: "images/categories" }),
+    })
+    image: any,
     @Body()
-    body: any,
+    body: CreateCategoryDto,
+    @Req() req: Request,
   ) {
-    throw new Error("hppp");
-    // console.log(image, "image object");
-    return this.CategoryService.create(body);
+    return this.CategoryService.create(body, image);
   }
 
   @Put("/:id")
