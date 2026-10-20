@@ -7,7 +7,6 @@ import {
   Middleware,
 } from "routing-controllers";
 import { Service } from "typedi";
-import { fileValidationError } from "../helpers/fileValidationError";
 
 @Service()
 @Middleware({ type: "after" })
@@ -25,7 +24,7 @@ export class CustomErrorMiddleware implements ExpressErrorMiddlewareInterface {
     }
 
     if (error instanceof MulterError) {
-      console.warn("Multer Err=============", error);
+      // console.warn("Multer Err=============", error);
       const multerErrorCodes = {
         LIMIT_FILE_SIZE: {
           isBigSize: "File size exceeds the limit.",
@@ -50,7 +49,7 @@ export class CustomErrorMiddleware implements ExpressErrorMiddlewareInterface {
     if (error instanceof HttpError) {
       let err = error as any;
       if (Object.hasOwn(err, "errors")) {
-        console.warn("Class validator Err=============", error);
+        // console.warn("Class validator Err=============", error);
         // class validator errors
         statusCode = 400;
         errorResponse = {
@@ -59,7 +58,7 @@ export class CustomErrorMiddleware implements ExpressErrorMiddlewareInterface {
           errors: err?.errors,
         };
 
-        // remove files if exist in error
+        // remove files if exist during error
         if (request.file) {
           const file = request.file;
           unlinkSync(file.path);
@@ -73,7 +72,7 @@ export class CustomErrorMiddleware implements ExpressErrorMiddlewareInterface {
           });
         }
       } else {
-        console.warn("Routing controller Err=============", error);
+        // console.warn("Routing controller Err=============", error);
         statusCode = err.httpCode;
         errorResponse = {
           status: false,

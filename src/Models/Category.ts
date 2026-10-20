@@ -14,6 +14,9 @@ export class Category {
   @Column()
   name: string;
 
+  @Column({ default: null })
+  imagePath: string;
+
   @Column({
     type: "bit",
     default: 1,

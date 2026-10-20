@@ -33,15 +33,18 @@ export class CategoryService {
     });
   }
 
-  async create(data: CreateCategoryDto, image: any) {
+  async create(data: CreateCategoryDto, image: Express.Multer.File) {
     if (!image) {
       throw fileValidationError({
-        property: "image",
+        property: image.fieldname,
         constraint: "isNotEmpty",
         message: "Image should not be empty.",
       });
     }
-    let category = this.CategoryRepository.create({ ...data });
+    let category = this.CategoryRepository.create({
+      ...data,
+      imagePath: image.path,
+    });
     return await this.CategoryRepository.save(category);
   }
 

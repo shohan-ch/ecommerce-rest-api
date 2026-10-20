@@ -1,25 +1,17 @@
 import {
-  BadRequestError,
   Body,
   Delete,
   Get,
   JsonController,
-  NotFoundError,
   Param,
   Post,
   Put,
-  Req,
   UploadedFile,
-  UploadedFiles,
-  UseAfter,
-  UseBefore,
 } from "routing-controllers";
 import { Inject, Service } from "typedi";
 import { CreateCategoryDto, UpdateCategoryDto } from "../Dtos/CategoryDto";
 import { CategoryService } from "../Services/CategoryService";
 import { fileUploadOptions } from "../Utils/upload/fileUploadOption";
-import multer from "multer";
-import { Request } from "express";
 
 @JsonController("/admin/categories")
 @Service()
@@ -46,12 +38,14 @@ export class CategoryController {
   @Post("/")
   create(
     @UploadedFile("image", {
-      options: fileUploadOptions({ directoryPath: "images/categories" }),
+      options: fileUploadOptions({
+        directoryPath: "images/categories",
+        maxFileSize: 1,
+      }),
     })
     image: any,
     @Body()
     body: CreateCategoryDto,
-    @Req() req: Request,
   ) {
     return this.CategoryService.create(body, image);
   }

@@ -18,7 +18,6 @@ export const fileUploadOptions = (options: OptionsType): Options => {
     maxFileSize,
   } = options;
 
-  console.log(options, "opt file");
   return {
     storage: multer.diskStorage({
       destination: (_req, file, cb) => {
@@ -43,8 +42,7 @@ export const fileUploadOptions = (options: OptionsType): Options => {
       },
     }),
     limits: {
-      fileSize: maxFileSize ? 1024 * 1024 * maxFileSize : undefined, // max 1mb allow to upload
-      // files: 5,
+      fileSize: maxFileSize ? 1024 * 1024 * maxFileSize : undefined, // max 1mb default allow to upload
     },
     fileFilter: (req, file, cb) => {
       // console.log(file, "filefilter");
