@@ -23,7 +23,7 @@ export class CreateCategoryDto {
 
 export class UpdateCategoryDto extends CreateCategoryDto {
   @IsNotEmpty()
-  @IsPositive()
-  @IsNumber()
+  // @IsPositive()
+  // @IsNumber()
   id: number;
 }

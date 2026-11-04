@@ -29,6 +29,6 @@ const rcOptions: RoutingControllersOptions = {
 
 const app = createExpressServer(rcOptions);
 
-app.use(express.static("/public/"));
+app.use("/", express.static(path.join(__dirname, "../public")));
 
 export default app;

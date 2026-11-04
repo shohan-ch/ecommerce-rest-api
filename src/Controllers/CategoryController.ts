@@ -52,9 +52,21 @@ export class CategoryController {
   }
 
   @Put("/:id")
-  update(@Param("id") id: number, @Body() body: UpdateCategoryDto) {
+  update(
+    @UploadedFile("image", {
+      options: fileUploadOptions({
+        directoryPath: "images/categories",
+        maxFileSize: 1,
+        fileType: "image",
+      }),
+    })
+    image: any,
+    @Param("id")
+    id: number,
+    @Body() body: UpdateCategoryDto,
+  ) {
     console.log(body, "category update");
-    return this.CategoryService.update(id, body);
+    return this.CategoryService.update(id, body, image);
   }
 
   @Delete("/:id")

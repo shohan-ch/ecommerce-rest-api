@@ -4,7 +4,7 @@ import { Category } from "../Models/Category";
 import { In, Repository } from "typeorm";
 import { CreateCategoryDto, UpdateCategoryDto } from "../Dtos/CategoryDto";
 import { BadRequestError, NotFoundError } from "routing-controllers";
-import { mkdir } from "node:fs";
+import { mkdir, unlinkSync } from "node:fs";
 import path from "node:path";
 import multer from "multer";
 import { ValidationError } from "class-validator";
@@ -43,16 +43,32 @@ export class CategoryService {
     }
     let category = this.CategoryRepository.create({
       ...data,
-      imagePath: image.path,
+      imagePath: "/uploads/images/categories/" + image.filename,
     });
     return await this.CategoryRepository.save(category);
   }
 
-  async update(paramId: number, data: UpdateCategoryDto) {
+  async update(
+    paramId: number,
+    data: UpdateCategoryDto,
+    image: Express.Multer.File,
+  ) {
     const { id, ...rest } = data;
-    let findById = await this.getOneBy("id", paramId);
-    if (!findById) throw new NotFoundError("Category not found by id");
-    return await this.CategoryRepository.update({ id: paramId }, rest);
+    let category = await this.getOneBy("id", paramId);
+    if (!category) throw new NotFoundError("Category not found by id");
+
+    if (image && category.imagePath) {
+      unlinkSync(path.join(__dirname, "../../public", category.imagePath));
+    }
+
+    let updateData = image
+      ? {
+          ...rest,
+          imagePath: "/uploads/images/categories/" + image.filename,
+        }
+      : { ...rest };
+
+    return await this.CategoryRepository.update({ id: paramId }, updateData);
   }
 
   async delete(paramId: number) {
