@@ -43,7 +43,7 @@ export class CategoryService {
     }
     let category = this.CategoryRepository.create({
       ...data,
-      imagePath: "/uploads/images/categories/" + image.filename,
+      image: "/uploads/images/categories/" + image.filename,
     });
     return await this.CategoryRepository.save(category);
   }
@@ -57,14 +57,14 @@ export class CategoryService {
     let category = await this.getOneBy("id", paramId);
     if (!category) throw new NotFoundError("Category not found by id");
 
-    if (image && category.imagePath) {
-      unlinkSync(path.join(__dirname, "../../public", category.imagePath));
+    if (image && category.image) {
+      unlinkSync(path.join(__dirname, "../../public", category.image));
     }
 
     let updateData = image
       ? {
           ...rest,
-          imagePath: "/uploads/images/categories/" + image.filename,
+          image: "/uploads/images/categories/" + image.filename,
         }
       : { ...rest };
 
@@ -75,7 +75,7 @@ export class CategoryService {
     return await this.CategoryRepository.delete({ id: paramId });
   }
 
-  async statusChange(data: { ids: number[]; status: number }) {
+  async statusChange(data: { ids: number[]; status: string }) {
     return await this.CategoryRepository.update(
       { id: In(data.ids) },
       { status: data.status },

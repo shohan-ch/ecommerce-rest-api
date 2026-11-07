@@ -75,7 +75,7 @@ export class CategoryController {
   }
 
   @Post("/status-change")
-  statusChange(@Body() body: { ids: number[]; status: number }) {
+  statusChange(@Body() body: { ids: number[]; status: string }) {
     return this.CategoryService.statusChange(body);
   }
 }

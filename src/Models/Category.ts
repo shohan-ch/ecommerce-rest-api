@@ -15,17 +15,17 @@ export class Category {
   name: string;
 
   @Column({ default: null })
-  imagePath: string;
+  image: string;
 
   @Column({
     type: "bit",
-    default: 1,
-    transformer: {
-      to: (value: number) => String(value),
-      from: (value: string) => Number(value),
-    },
+    default: "1",
+    // transformer: {
+    //   to: (value: number) => String(value),
+    //   from: (value: string) => Number(value),
+    // },
   })
-  status: number = 1;
+  status: string;
 
   @CreateDateColumn({ type: "timestamp" })
   createdAt: Date;

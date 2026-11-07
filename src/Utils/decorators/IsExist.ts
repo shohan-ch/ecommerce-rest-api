@@ -33,12 +33,12 @@ export function IsExist<T>(
             ? { ...whereCondition, id: Not(updateId) }
             : { ...whereCondition };
 
-          console.log(whereCondition, "where condir");
+          // console.log(whereCondition, "where condir");
           const isExist = await dataSource.getRepository(modal).findOne({
             where: whereCondition,
           });
 
-          console.log(isExist, "exist");
+          // console.log(isExist, "exist");
 
           if (isExist) return false;
           return true;

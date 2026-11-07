@@ -48,7 +48,7 @@ export const fileUploadOptions = (options: OptionsType): Options => {
       // console.log(file, "filefilter");
       let allowedTypes: string[] = [];
       if (fileType === "image") {
-        allowedTypes = ["jpg", "jpeg"];
+        allowedTypes = ["jpg", "jpeg", "png"];
       }
 
       if (

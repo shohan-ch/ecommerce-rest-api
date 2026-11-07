@@ -1,12 +1,6 @@
-import {
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsPositive,
-  IsString,
-} from "class-validator";
-import { IsExist } from "../Utils/decorators/IsExist";
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { Category } from "../Models/Category";
+import { IsExist } from "../Utils/decorators/IsExist";
 
 export class CreateCategoryDto {
   @IsExist(Category, "name", {
@@ -17,8 +11,8 @@ export class CreateCategoryDto {
   name: string;
 
   @IsOptional()
-  @IsNumber()
-  status: number;
+  @IsString()
+  status: string;
 }
 
 export class UpdateCategoryDto extends CreateCategoryDto {
