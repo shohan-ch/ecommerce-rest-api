@@ -11,13 +11,13 @@ export class Banner {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ default: null })
   title: string;
 
   @Column()
   link: string;
 
-  @Column({ default: null })
+  @Column()
   image: string;
 
   @Column({
