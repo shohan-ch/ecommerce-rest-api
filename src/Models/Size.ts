@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { ProductVariant } from "./ProductVariant";
 
 @Entity("Size")
 export class Size {
@@ -13,6 +15,9 @@ export class Size {
 
   @Column()
   name: string;
+
+  @ManyToMany(() => ProductVariant)
+  variants: ProductVariant[];
 
   @Column({
     type: "bit",

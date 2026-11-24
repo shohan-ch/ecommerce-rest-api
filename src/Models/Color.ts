@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { ProductVariant } from "./ProductVariant";
 
 @Entity("Color")
 export class Color {
@@ -16,6 +18,9 @@ export class Color {
 
   @Column()
   colorCode: string;
+
+  @ManyToMany(() => ProductVariant)
+  variants: ProductVariant[];
 
   @Column({
     type: "bit",
